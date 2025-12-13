@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public abstract class Akademisyen extends Kisi {
+public class Akademisyen extends Kisi {
     private String sicilNo;
     private double maas;
 
@@ -9,9 +9,26 @@ public abstract class Akademisyen extends Kisi {
         this.sicilNo = sicilNo;
     }
 
-    // Abstract metodu override edip somutlaştırmadık, bu sınıf hala abstract.
-    // Ancak yeni abstract metot ekleyebiliriz.
-    public abstract double maasHesapla();
+    // 1. Zorunluluk: Akademisyen'in kendi abstract metodu (önceki adımdan)
+
+    public double maasHesapla() {
+        return this.maas;
+    }
+
+    // 2. Zorunluluk: Kisi sınıfından gelen abstract metot (Hata veren kısım burasıydı)
+    @Override
+    public void bilgileriGoster() {
+        // Kisi sınıfındaki alanlara erişiminiz varsa (getAd(), getSoyad() vb.) buraya ekleyebilirsiniz.
+        // Örnek bir çıktı:
+        System.out.println("--- Akademisyen Bilgileri ---");
+        System.out.println("Sicil No: " + this.sicilNo);
+        System.out.println("Maaş: " + this.maas);
+    }
+
+    @Override
+    public String getRolAdi() {
+        return "Akademisyen";
+    }
 
     public String getSicilNo() { return sicilNo; }
     public void setMaas(double maas) { this.maas = maas; }

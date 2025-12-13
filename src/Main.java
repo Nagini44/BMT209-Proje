@@ -1,3 +1,7 @@
+import src.AkademikMekan;
+import src.Derslik;
+import src.KapasiteHatasiException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,7 +10,7 @@ public class Main{
     private static Scanner scanner = new Scanner(System.in);
 
     // Veri Depoları (Basit veritabanı simülasyonu)
-    private static List<Mekan> mekanlar = new ArrayList<>();
+    private static List<AkademikMekan> mekanlar = new ArrayList<>();
     private static VeriDeposu<Ogrenci> ogrenciDeposu = new VeriDeposu<>();
     private static List<Ders> dersListesi = new ArrayList<>();
 
@@ -39,27 +43,22 @@ public class Main{
     // --- 1. ÖĞRENCİ EKRANI ---
     private static void ogrenciMenusu() {
         System.out.println("\n--- ÖĞRENCİ PANELİ ---");
-        System.out.println("1. Derslik/Ofis Sorgula");
-        System.out.println("2. GANO Göster");
-        System.out.println("3. Transkript Görüntüle");
-        System.out.println("4. Ders Programı");
+        System.out.println("1. GANO Göster");
+        System.out.println("2. Transkript Görüntüle");
+        System.out.println("3. Ders Programı");
         System.out.println("0. Ana Menü");
         System.out.print("Seçim: ");
 
         String secim = scanner.nextLine();
         switch(secim) {
             case "1":
-                System.out.println("Mekanlar Listeleniyor:");
-                for(Mekan m : mekanlar) m.ozellikleriGoster();
-                break;
-            case "2":
                 System.out.println("GANO: 3.45 (Demo Veri)");
                 break;
-            case "3":
+            case "2":
                 System.out.println("--- Transkript ---");
                 for(Ders d : dersListesi) System.out.println(d + " : AA");
                 break;
-            case "4":
+            case "3":
                 System.out.println("Pazartesi 09:00 - Nesne Yönelimli Programlama (D-101)");
                 break;
             case "0": return;
@@ -104,6 +103,7 @@ public class Main{
         System.out.println("Aktif Personel: " + memur.getAd() + " " + memur.getSoyad());
         System.out.println("1. Dersliğe Ders Ata");
         System.out.println("2. Derse Hoca Ata");
+        System.out.println("3. Rezervasyon işlemi");
         System.out.println("0. Ana Menü");
         System.out.print("Seçim: ");
 
@@ -119,16 +119,25 @@ public class Main{
             case "2":
                 System.out.println("Derse hoca atama işlemi başarıyla tamamlandı.");
                 break;
-            case "0": return;
+            case "3":
+
+                AkademikMekan A101 = new Derslik("101. Sınıf","A blok Birinci Kat",30);
+                A101.ozellikleriListele();
+                try {
+                    A101.rezervasyonYap("14.30", 20);
+                }catch (KapasiteHatasiException e){
+                    System.out.println("Hata Yakalandı" + e.getMessage());
+                }
+                break;
+            case "0":
+                return;
         }
     }
 
     // Demo verileri yükleme
     private static void veriYukle() {
         // Mekanlar
-        mekanlar.add(new Derslik("A", "1", "D-101", 50));
-        mekanlar.add(new Laboratuvar("B", "Zemin", "PC Lab-1", 30));
-        mekanlar.add(new Ofis("C", "2", "Doç. Dr. Ahmet Yılmaz"));
+
 
         // Dersler
         dersListesi.add(new Ders("NYP101", "Nesne Yönelimli Programlama", 5));

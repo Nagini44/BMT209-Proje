@@ -1,6 +1,7 @@
 package src;
+// Hiyerarşi 2'nin Başı
 
-public abstract class AkademikMekan implements IRezervasyon {
+    public abstract class AkademikMekan implements IRezervasyon {
     // Değişkenler private (Encapsulation) ve Wrapper sınıf (Integer)
     private String isim;
     private String konum;
@@ -11,13 +12,16 @@ public abstract class AkademikMekan implements IRezervasyon {
         this.konum = konum;
         this.kapasite = kapasite;
     }
+
     // Soyut Metod: Her alt sınıf bunu kendine göre DOLDURMAK ZORUNDA
     public abstract void ozellikleriListele();
+
     // Getter ve Setter Metodları (Erişim için)
     public String getIsim() { return isim; }
     public Integer getKapasite() { return kapasite; }
     // Interface'den gelen metodu burada genel bir şekilde ezebiliriz
     // veya alt sınıflara bırakabiliriz. Burada örnek gövde yazalım:
+
     @Override
     public void rezervasyonYap(String zaman, int kisiSayisi) throws KapasiteHatasiException {
         if (kisiSayisi > this.kapasite) {
