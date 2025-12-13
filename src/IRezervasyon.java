@@ -1,5 +1,3 @@
-package src;
-
 public interface IRezervasyon {
     //metod imzaları oluşturalım (abstract olacak)
     void rezervasyonYap(String zaman) throws KapasiteHatasiException;

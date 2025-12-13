@@ -1,4 +1,3 @@
-package src;
 // Hiyerarşi 2'nin Başı
 
     public abstract class AkademikMekan implements IRezervasyon {

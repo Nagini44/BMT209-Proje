@@ -1,5 +1,3 @@
-package src;
-
 public class Laboratuvar extends AkademikMekan{
     private Integer pcSayisi; // Wrapper sınıf
 
