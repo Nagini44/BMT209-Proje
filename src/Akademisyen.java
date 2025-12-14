@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Akademisyen extends Kisi {
+public class Akademisyen extends Kisi { // 1. Değişiklik: 'abstract' kelimesi silindi
     private String sicilNo;
     private double maas;
 
@@ -9,13 +9,13 @@ public class Akademisyen extends Kisi {
         this.sicilNo = sicilNo;
     }
 
-    // 1. Zorunluluk: Akademisyen'in kendi abstract metodu (önceki adımdan)
-
+    // 2. Değişiklik: Abstract metot artık somutlaştırıldı (içeriği yazıldı).
+    // Artık bu sınıftan nesne üretildiğinde bu metot çalıştırılabilir.
     public double maasHesapla() {
+        // Varsayılan olarak mevcut maaşı döndürebiliriz veya
+        // buraya temel bir hesaplama mantığı yazabiliriz.
         return this.maas;
     }
-
-    // 2. Zorunluluk: Kisi sınıfından gelen abstract metot (Hata veren kısım burasıydı)
     @Override
     public void bilgileriGoster() {
         // Kisi sınıfındaki alanlara erişiminiz varsa (getAd(), getSoyad() vb.) buraya ekleyebilirsiniz.
@@ -26,9 +26,8 @@ public class Akademisyen extends Kisi {
     }
 
     @Override
-    public String getRolAdi() {
-        return "Akademisyen";
-    }
+    public String getRolAdi() {return "Akademisyen";}
+
 
     public String getSicilNo() { return sicilNo; }
     public void setMaas(double maas) { this.maas = maas; }

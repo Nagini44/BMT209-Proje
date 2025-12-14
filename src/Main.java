@@ -1,3 +1,9 @@
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -27,19 +33,52 @@ public class Main{
 
             String secim = scanner.nextLine();
             switch (secim) {
-                case "1": ogrenciMenusu(); break;
-                case "2": akademisyenMenusu(); break;
-                case "3": idariPersonelMenusu(); break;
-                case "0": sistemAcik = false; break;
-                default: System.out.println("Hatalı seçim!");
+                case "1":
+                        // JSON'dan verileri çek
+                        List<Ogrenci> kayitliListesi = JsonIslemleri.ogrencileriYukle();
+
+                        System.out.print("Öğrenci Numaranızı Giriniz: ");
+                        // Hata yönetimi için string alıp parse edelim
+                        String girilenNoStr = scanner.nextLine();
+
+                        try {
+                            int girilenNo = Integer.parseInt(girilenNoStr);
+                            Ogrenci bulunanOgrenci = null;
+
+                            // Listede öğrenciyi ara
+                            for (Ogrenci o : kayitliListesi) {
+                                if (o.getOgrenciNo() == girilenNo) {
+                                    bulunanOgrenci = o;
+                                    break;
+                                }
+                            }
+
+                            if (bulunanOgrenci != null) {
+                                System.out.println("Giriş Başarılı! Hoşgeldin " + bulunanOgrenci.getAd());
+                                ogrenciMenusu(bulunanOgrenci); // Bulunan öğrenciyi metoda gönderiyoruz
+                            } else {
+                                System.out.println("HATA: Bu numaraya ait kayıt bulunamadı!");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            System.out.println("Lütfen geçerli bir sayı giriniz.");
+                        }
+                        break;
+
+                    case "2": akademisyenMenusu(); break;
+                    case "3": idariPersonelMenusu(); break;
+                    case "0": sistemAcik = false; break;
+                    default: System.out.println("Hatalı seçim!");
+
             }
         }
     }
 
     // --- 1. ÖĞRENCİ EKRANI ---
-    private static void ogrenciMenusu() {
-        System.out.println("\n--- ÖĞRENCİ PANELİ ---");
-        System.out.println("1. GANO Göster");
+    // Parametre olarak giriş yapan öğrenciyi alıyoruz
+    private static void ogrenciMenusu(Ogrenci aktifOgrenci) {
+        System.out.println("\n--- ÖĞRENCİ PANELİ (" + aktifOgrenci.getAd() + " " + aktifOgrenci.getSoyad() + ") ---");
+        System.out.println("1. GANO ve Harf Notu Göster");
         System.out.println("2. Transkript Görüntüle");
         System.out.println("3. Ders Programı");
         System.out.println("0. Ana Menü");
@@ -48,11 +87,13 @@ public class Main{
         String secim = scanner.nextLine();
         switch(secim) {
             case "1":
-                System.out.println("GANO: 3.45 (Demo Veri)");
+                aktifOgrenci.bilgileriGoster(); // Tüm hesaplamalar burada yapılıp ekrana basılacak
+
                 break;
             case "2":
                 System.out.println("--- Transkript ---");
-                for(Ders d : dersListesi) System.out.println(d + " : AA");
+                // Örnek olarak sadece hesaplanan dersi gösteriyoruz
+                System.out.println("Genel Ortalama: " + aktifOgrenci.notOrtalamasiHesapla());
                 break;
             case "3":
                 System.out.println("Pazartesi 09:00 - Nesne Yönelimli Programlama (D-101)");
