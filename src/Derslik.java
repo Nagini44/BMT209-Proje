@@ -25,4 +25,28 @@ public class Derslik extends AkademikMekan{
         System.out.println("Kapasite: " + getKapasite() + " Öğrenci");
         System.out.println("İşlenen Dersler: " + verilenDersler);
     }
+    // AkademikMekan'deki soyut metodu override ediyoruz.
+    @Override
+    public boolean kapasiteSorgula(int kisiSayisi) {
+        boolean uygun = kisiSayisi <= getKapasite();
+        if (uygun) {
+            System.out.println(getIsim() + " için " + kisiSayisi + " kişilik ders yapılabilir.");
+        } else {
+            System.out.println(getIsim() + " için " + kisiSayisi + " kişilik ders yapılamaz. Kapasite: " + getKapasite());
+        }
+        return uygun;
+    }
+
+    // Idari personelin dersi buraya ataması: eğer derslikte henüz ders yoksa atamayı onayla
+    @Override
+    public boolean dersAtama(String dersAdi, String onaylayanAdi) {
+        if (this.verilenDersler.isEmpty()) {
+            this.verilenDersler.add(dersAdi);
+            System.out.println("İdari personel " + onaylayanAdi + " tarafından " + getIsim() + " dersliğine '" + dersAdi + "' ataması yapıldı.");
+            return true;
+        } else {
+            System.out.println(getIsim() + " zaten ders/etkinlik içeriyor: " + verilenDersler + ". Yeni atama için önce mevcut atama kaldırılmalı.");
+            return false;
+        }
+    }
 }
