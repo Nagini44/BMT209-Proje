@@ -1,5 +1,3 @@
-package src;
-
 public abstract class AkademikMekan implements IRezervasyon {
     // Değişkenler private (Encapsulation) ve Wrapper sınıf (Integer)
     private String isim;
