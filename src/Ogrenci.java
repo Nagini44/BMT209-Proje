@@ -8,9 +8,12 @@ public class Ogrenci extends Kisi implements IDegerlendirilebilir {
     private int sinif;
     // Notları tutan yeni depo
     private Map<String, Double> dersNotlari = new HashMap<>();
+    public Map<String, Double> getDersNotlari() {
+        return this.dersNotlari;
+    }
 
     public Ogrenci(long id, String ad, String soyad, LocalDate dogumTarihi, int ogrenciNo, int sinif) {
-        super(id, ad, soyad, dogumTarihi);
+        super(id, ad, soyad, dogumTarihi,Unvan.OGRENCI);
         this.ogrenciNo = ogrenciNo;
         this.sinif = sinif;
     }
@@ -78,4 +81,6 @@ public class Ogrenci extends Kisi implements IDegerlendirilebilir {
     @Override public String harfNotuGetir() { return notOrtalamasiHesapla() >= 50 ? "Geçti" : "Kaldı"; }
     @Override public boolean gectiMi() { return notOrtalamasiHesapla() >= 50; }
     public int getOgrenciNo() { return ogrenciNo; }
+    // Ogrenci sınıfının en altına veya getter metodlarının olduğu yere ekleyin:
+    public int getSinif() {return sinif;}
 }
