@@ -17,29 +17,7 @@ public class JsonIslemleri {
     private static final String IDARI_DOSYA = "idariPersonel.json";
 
     // service/Raporlama.java (Yeni bir yardımcı sınıf oluşturabilirsiniz)
-    public class Raporlama {
-        // Generic Metot 1: Herhangi bir diziyi ekrana basar
-        public static <T> void diziYazdir(T[] dizi) {
-            for (T eleman : dizi) {
-                System.out.println(eleman);
-            }
-        }
 
-        // Generic Metot 2
-        public static <T> T ilkElemaniGetir(List<T> liste) {
-            if (liste == null || liste.isEmpty()) return null;
-            return liste.get(0);
-        }
-
-        // Wildcard Kullanımı (List<?>)
-        public static void listeyiYazdir(List<?> liste) {
-            System.out.println("--- Liste İçeriği ---");
-            for (Object obj : liste) {
-                System.out.println(obj);
-            }
-        }
-    }
-    // 1. GÜNCELLENEN METOD: Akademisyenleri Yükle
     public static List<Akademisyen> akademisyenleriYukle() {
         List<Akademisyen> liste = new ArrayList<>();
         File file = new File("akademisyenler.json");
@@ -83,17 +61,7 @@ public class JsonIslemleri {
                         case "sicilNo": sicil = val; break;
                         case "brans": brans = val; break;
                         case "maas": maas = Double.parseDouble(val); break;
-                        case "verdiği_dersler": // Yeni alan okuma
-                            // "Fiz101;Fiz102" gibi gelebilir, biz virgül veya noktalı virgül ayıralım
-                            // JSON örneğinizde virgül kullanılmış, ancak split mantığımız virgülleri bozabilir.
-                            // Güvenli yöntem: Gelen stringi temizleyip ekleyelim.
-                            // Eğer JSON yapınızda değer string ise "Fiz101;Fiz102" formatı daha güvenlidir.
-                            // Burada basitçe string'i alıp varsa içindeki ayırıcıya göre bölüyoruz.
-                            String[] dersler = val.split(";"); // JSON'da dersleri noktalı virgül ile ayırmanız daha sağlıklı olur
-                            // Veya split logic'iniz virgülleri " , " yaptığı için burada dikkatli olmak gerek.
-                            // Basit çözüm: Gelen değeri direkt ekleyelim, çoklu ders için JSON formatını
-                            // "verdiği_dersler": "Fiz101-Fiz102" gibi yapıp tire ile ayırabilirsiniz.
-                            // Şimdilik string içinde gelen değeri parse ediyoruz:
+                        case "verdiği_dersler":
                             if(val.contains("-")) {
                                 for(String d : val.split("-")) verilenDersler.add(d.trim());
                             } else {
@@ -103,7 +71,7 @@ public class JsonIslemleri {
                     }
                 }
 
-                // ... (UnvanEnum çevrimi aynı kalacak) ...
+                //
                 Unvan unvanEnum;
                 try {
                     unvanEnum = Unvan.valueOf(unvan.toUpperCase());
@@ -122,7 +90,7 @@ public class JsonIslemleri {
         return liste;
     }
 
-    // YENİ METOD: İdari Personel Yükle (idariPersonel.json)
+    //İdari Personel Yükle (idariPersonel.json)
     public static List<IdariPersonel> idariPersonelYukle() {
         List<IdariPersonel> list = new ArrayList<>();
         File file = new File(IDARI_DOSYA);
@@ -171,7 +139,7 @@ public class JsonIslemleri {
         return list;
     }
 
-    // YENİ METOD: İdari Personel Kaydet (basit format)
+    //İdari Personel Kaydet (basit format)
     public static void idariPersonelKaydet(List<IdariPersonel> liste) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(IDARI_DOSYA))) {
             writer.write("[\n");
@@ -187,7 +155,7 @@ public class JsonIslemleri {
         }
     }
 
-    // YENİ METOD: Akademisyenleri JSON'a kaydet (basit düz metin formatında)
+    // Akademisyenleri JSON'a kaydet
     public static void akademisyenleriKaydet(List<Akademisyen> liste) {
         File file = new File("akademisyenler.json");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -214,7 +182,7 @@ public class JsonIslemleri {
         }
     }
 
-    // 2. YENİ EKLENEN METOD: Öğrencileri Kaydet (ogrencileriYukle metodunun altına ekleyin)
+    // Öğrencileri Kaydet
     public static void ogrencileriKaydet(List<Ogrenci> ogrenciler) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(DOSYA_YOLU))) {
             writer.write("[\n");
@@ -260,17 +228,12 @@ public class JsonIslemleri {
                 writer.newLine(); // Bir sonraki öğrenci için satır başı yap
             }
             writer.write("]");
-            // System.out.println("Kayıt güncellendi: " + DOSYA_YOLU); // İsterseniz bu logu açabilirsiniz
         } catch (IOException e) {
             System.out.println("Dosya yazma hatası: " + e.getMessage());
         }
     }
 
-    // NOT: ogrencileriYukle ve notlariRaporla metodlarınız aynen kalabilir.
-    // Ancak ogrencileriYukle metodunun en altında return liste; olduğundan emin olun.
 
-    // (Buraya mevcut ogrencileriYukle ve notlariRaporla metodlarınızı kopyalamayı unutmayın!)
-    // Kod bütünlüğü için onları buraya tekrar yazmadım ama silmeyin.
     public static void notlariRaporla(Ogrenci ogr) {
         if (ogr == null) {
             System.out.println("HATA: Öğrenci bilgisi boş.");

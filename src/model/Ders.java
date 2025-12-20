@@ -12,7 +12,6 @@ public class Ders {
         this.ad = ad;
         this.kredi = kredi;
     }
-    // model/Ders.java içerisine ekleyin:
     public Ders() {
         // Varsayılan değerler
         this.kod = "Tanımsız";

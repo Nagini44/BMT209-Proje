@@ -1,6 +1,8 @@
 import model.*;
 import service.JsonIslemleri;
 import service.VeriDeposu;
+import util.IslemSonucu;
+import util.TarihYardimcisi;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class Main{
     public static void main(String[] args) {
         veriYukle(); // Demo verilerini oluştur
 
+        String bugun = TarihYardimcisi.bugunuGetir();
         boolean sistemAcik = true;
         do {
             System.out.println("\n###################################");
@@ -125,8 +128,7 @@ public class Main{
             System.out.println("\n--- ÖĞRENCİ PANELİ (" + aktifOgrenci.getAd() + " " + aktifOgrenci.getSoyad() + ") ---");
             System.out.println("1. GANO ve Harf Notu Göster");
             System.out.println("2. Transkript Görüntüle");
-            System.out.println("3. model.Ders Programı");
-            System.out.println("4. Konum Sorgula");
+            System.out.println("3. Konum Sorgula");
             System.out.println("0. Ana Menü");
             System.out.print("Seçim: ");
 
@@ -141,8 +143,6 @@ public class Main{
                     JsonIslemleri.notlariRaporla(aktifOgrenci);
                     break;
                 case "3":
-                    break;
-                case "4":
                     konumSorgulaPrompt();
                     break;
                 case "0":
@@ -196,6 +196,7 @@ public class Main{
                     Ogrenci hedefOgrenci = null;
                     for (Ogrenci o : ogrenciDeposu.getListe()) {
                         if (String.valueOf(o.getOgrenciNo()).equals(ogrNoStr)) {
+
                             hedefOgrenci = o;
                             break;
                         }
@@ -528,6 +529,16 @@ public class Main{
         }
     }
 
+    public static IslemSonucu<Ogrenci> ogrenciBul(int ogrenciNo, List<Ogrenci> liste) {
+        for (Ogrenci o : liste) {
+            if (o.getOgrenciNo() == ogrenciNo) {
+                // Bulundu: Başarılı, Mesaj, Öğrenci Nesnesi
+                return new IslemSonucu<>(true, "Öğrenci bulundu.", o);
+            }
+        }
+        // Bulunamadı: Başarısız, Hata Mesajı, Null
+        return new IslemSonucu<>(false, "Bu numaralı öğrenci sistemde yok.", null);
+    }
      // Demo verileri yükleme
      private static void veriYukle() {
               // -- BURAYI EKLEYİN --

@@ -9,6 +9,7 @@ public abstract class AkademikMekan implements IRezervasyon {
     private String isim;
     private String konum;
     private Integer kapasite;
+
     // Constructor (Yapıcı Metod)
     public AkademikMekan(String isim, String konum, Integer kapasite) {
         this.isim = isim;
@@ -18,7 +19,6 @@ public abstract class AkademikMekan implements IRezervasyon {
     // Soyut Metod: Her alt sınıf bunu kendine göre DOLDURMAK ZORUNDA
     public abstract void ozellikleriListele();
 
-    // Yeni metot: verilen kisiSayisi ile mekanda ders işlenip işlenemeyeceğini sorgular
     // Alt sınıflar bunu override ederek kendi kararlarını verebilir. Burada bir varsayılan
     // (default) uygulama sağlanıyor; böylece tüm alt sınıfları değiştirmeye gerek kalmaz.
     public boolean kapasiteSorgula(int kisiSayisi) {
@@ -31,7 +31,6 @@ public abstract class AkademikMekan implements IRezervasyon {
         return uygun;
     }
 
-    // Yeni metot: model.Ders ataması yapmak için alt sınıflar override edebilir.
     // Eğer alt sınıf override etmezse bu varsayılan davranış çalışır.
     public boolean dersAtama(String dersAdi, String onaylayanAdi) {
         System.out.println("[model.AkademikMekan] " + getIsim() + " bu mekan türü ders atamayı desteklemiyor veya özel davranışı yok.");
@@ -47,9 +46,10 @@ public abstract class AkademikMekan implements IRezervasyon {
         }
         this.kapasite = kapasite;
     }
-    // Yeni: konum bilgisini okumak ve ayarlamak için gerekli metotlar
+    // Konum bilgisini okumak ve ayarlamak için gerekli metotlar
     public String getKonum() { return konum; }
     public void setKonum(String konum) { this.konum = konum; }
+
     // Interface'den gelen metodu burada genel bir şekilde ezebiliriz
     // veya alt sınıflara bırakabiliriz. Burada örnek gövde yazalım:
     @Override

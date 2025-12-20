@@ -32,10 +32,6 @@ public class VeriDeposu<T extends Kisi> {
         return idMap.get(id); // O(1) hızında bulur
     }
 
-    // Öğrenci numarasına göre arama (Ekstra metot: Map ID tutuyor ama biz No ile arayacağız)
-    // Eğer JSON'daki "id" ile "no" farklıysa bu metoda ihtiyacımız var.
-
-
     public List<T> getListe() {
         return liste;
     }

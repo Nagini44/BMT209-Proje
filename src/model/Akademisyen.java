@@ -12,7 +12,7 @@ public class Akademisyen extends Kisi {
     private double maas;
     private List<String> verilenDersler; // EKLENDİ
 
-    // Constructor GÜNCELLENDİ
+    // Constructor
     public Akademisyen(long id, String ad, String soyad, LocalDate dt, String sicilNo, String brans, double maas, List<String> verilenDersler) {
         super(id, ad, soyad, dt, Unvan.AKADEMISYEN);
         this.id = id;
