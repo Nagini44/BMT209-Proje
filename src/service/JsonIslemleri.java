@@ -1,3 +1,10 @@
+package service;
+
+import model.Akademisyen;
+import model.Ogrenci;
+import model.IdariPersonel;
+import model.Unvan;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -286,7 +293,7 @@ public class JsonIslemleri {
                 String ders = key.substring(0, key.length() - 1);
                 finalMap.put(ders, val);
             } else {
-                // Ders kodu net değilse vize olarak al
+                // model.Ders kodu net değilse vize olarak al
                 vizeMap.put(key, val);
             }
         }

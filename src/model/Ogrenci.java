@@ -1,3 +1,7 @@
+package model;
+
+import interfaces.IDegerlendirilebilir;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +17,7 @@ public class Ogrenci extends Kisi implements IDegerlendirilebilir {
     }
 
     public Ogrenci(long id, String ad, String soyad, LocalDate dogumTarihi, int ogrenciNo, int sinif) {
-        super(id, ad, soyad, dogumTarihi,Unvan.OGRENCI);
+        super(id, ad, soyad, dogumTarihi, Unvan.OGRENCI);
         this.ogrenciNo = ogrenciNo;
         this.sinif = sinif;
     }
@@ -81,6 +85,6 @@ public class Ogrenci extends Kisi implements IDegerlendirilebilir {
     @Override public String harfNotuGetir() { return notOrtalamasiHesapla() >= 50 ? "Geçti" : "Kaldı"; }
     @Override public boolean gectiMi() { return notOrtalamasiHesapla() >= 50; }
     public int getOgrenciNo() { return ogrenciNo; }
-    // Ogrenci sınıfının en altına veya getter metodlarının olduğu yere ekleyin:
+    // model.Ogrenci sınıfının en altına veya getter metodlarının olduğu yere ekleyin:
     public int getSinif() {return sinif;}
 }

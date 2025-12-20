@@ -1,3 +1,8 @@
+package model;
+
+import exception.KapasiteHatasiException;
+import interfaces.IRezervasyon;
+
 public abstract class AkademikMekan implements IRezervasyon {
     // Değişkenler private (Encapsulation) ve Wrapper sınıf (Integer)
     private String isim;
@@ -25,10 +30,10 @@ public abstract class AkademikMekan implements IRezervasyon {
         return uygun;
     }
 
-    // Yeni metot: Ders ataması yapmak için alt sınıflar override edebilir.
+    // Yeni metot: model.Ders ataması yapmak için alt sınıflar override edebilir.
     // Eğer alt sınıf override etmezse bu varsayılan davranış çalışır.
     public boolean dersAtama(String dersAdi, String onaylayanAdi) {
-        System.out.println("[AkademikMekan] " + getIsim() + " bu mekan türü ders atamayı desteklemiyor veya özel davranışı yok.");
+        System.out.println("[model.AkademikMekan] " + getIsim() + " bu mekan türü ders atamayı desteklemiyor veya özel davranışı yok.");
         return false;
     }
 

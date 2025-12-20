@@ -1,3 +1,5 @@
+package model;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class Akademisyen extends Kisi {
 
     public boolean dersBransaUygunMu(String dersKodu) {
         if (verilenDersler == null) return false;
-        // Ders kodunun kökünü kontrol et (Örn: Fiz101V -> Fiz101 içeriyor mu?)
+        // model.Ders kodunun kökünü kontrol et (Örn: Fiz101V -> Fiz101 içeriyor mu?)
         for(String ders : verilenDersler) {
             if(dersKodu.startsWith(ders)) return true;
         }
@@ -50,7 +52,7 @@ public class Akademisyen extends Kisi {
         System.out.println("Verdiği Dersler: " + (verilenDersler != null ? verilenDersler : "Yok"));
     }
 
-    public String getRolAdi() { return "Akademisyen"; }
+    public String getRolAdi() { return "model.Akademisyen"; }
 
     // Getter - Setter
     public String getBrans() { return brans; }
