@@ -26,7 +26,7 @@ public class Main{
         veriYukle(); // Demo verilerini oluştur
 
         boolean sistemAcik = true;
-        while (sistemAcik) {
+        do {
             System.out.println("\n###################################");
             System.out.println("#    OBS SİSTEMİNE HOŞ GELDİNİZ   #");
             System.out.println("###################################");
@@ -114,7 +114,7 @@ public class Main{
                     default: System.out.println("Hatalı seçim!");
 
             }
-        }
+        } while (sistemAcik);
     }
 
     // --- 1. ÖĞRENCİ EKRANI ---

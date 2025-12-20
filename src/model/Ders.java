@@ -1,5 +1,7 @@
 package model;
 
+import exception.HataliVeriException;
+
 public class Ders {
     private String kod;
     private String ad;
@@ -26,4 +28,10 @@ public class Ders {
     public String getAd() { return ad; }
     public String getKod() { return kod; }
     public int getKredi() { return kredi; }
+    public void setKredi(int kredi) throws HataliVeriException {
+        if (kredi < 1 || kredi > 10) {
+            throw new HataliVeriException("Ders kredisi 1-10 arasında olmalıdır.");
+        }
+        this.kredi = kredi;
+    }
 }

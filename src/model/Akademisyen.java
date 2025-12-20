@@ -1,5 +1,7 @@
 package model;
 
+import exception.HataliVeriException;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -58,6 +60,12 @@ public class Akademisyen extends Kisi {
     public String getBrans() { return brans; }
     public void setBrans(String brans) { this.brans = brans; }
     public double getMaas() { return maas; }
+    public void setMaas(double maas) throws HataliVeriException {
+        if (maas < 17002) { // Asgari ücret kontrolü
+            throw new HataliVeriException("Maaş asgari ücretten düşük olamaz!");
+        }
+        this.maas = maas;
+    }
     public String getSicilNo() { return sicilNo; }
     public long getId() { return id; }
     public List<String> getVerilenDersler() { return verilenDersler; }

@@ -1,5 +1,7 @@
 package model;
 
+import exception.HataliVeriException;
+
 import java.time.LocalDate;
 
 // Gereksinim 4.2: Abstract sınıf
@@ -34,8 +36,12 @@ public abstract class Kisi {
     public void setId(long id) { this.id = id; }
 
     public String getAd() { return ad; }
-    public void setAd(String ad) { this.ad = ad; }
-
+    public void setAd(String ad) throws HataliVeriException {
+        if (ad == null || ad.trim().length() < 2) {
+            throw new HataliVeriException("İsim en az 2 karakter olmalıdır.");
+        }
+        this.ad = ad;
+    }
     public String getSoyad() { return soyad; }
     public void setSoyad(String soyad) { this.soyad = soyad; }
 

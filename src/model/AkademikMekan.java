@@ -1,5 +1,6 @@
 package model;
 
+import exception.HataliVeriException;
 import exception.KapasiteHatasiException;
 import interfaces.IRezervasyon;
 
@@ -40,6 +41,12 @@ public abstract class AkademikMekan implements IRezervasyon {
     // Getter ve Setter Metodları (Erişim için)
     public String getIsim() { return isim; }
     public Integer getKapasite() { return kapasite; }
+    public void setKapasite(Integer kapasite) throws HataliVeriException {
+        if (kapasite == null || kapasite < 1) {
+            throw new HataliVeriException("Kapasite en az 1 olmalıdır!");
+        }
+        this.kapasite = kapasite;
+    }
     // Yeni: konum bilgisini okumak ve ayarlamak için gerekli metotlar
     public String getKonum() { return konum; }
     public void setKonum(String konum) { this.konum = konum; }
