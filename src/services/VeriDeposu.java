@@ -1,6 +1,10 @@
+package services;
+
+import model.Kisi;
+
 import java.util.*;
 
-class VeriDeposu<T extends Kisi> {
+public class VeriDeposu<T extends Kisi> {
     private List<T> liste;
     private Map<Long, T> idMap; // Hızlı arama için ID haritası
 
@@ -23,7 +27,7 @@ class VeriDeposu<T extends Kisi> {
         }
     }
 
-    // VeriDeposu'ndaki ID ile arama metodu
+    // services.VeriDeposu'ndaki ID ile arama metodu
     public T bul(long id) {
         return idMap.get(id); // O(1) hızında bulur
     }

@@ -1,7 +1,12 @@
+package model;
+
+import exception.HataliVeriException;
+import exception.KapasiteHatasiException;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Laboratuvar extends AkademikMekan{
+public class Laboratuvar extends AkademikMekan {
     private Integer pcSayisi; // Wrapper sınıf
     private List<String> verilenDersler; // laboratuvarda verilen dersleri tutmak için
 
@@ -38,8 +43,8 @@ public class Laboratuvar extends AkademikMekan{
         System.out.println("İşlenen Dersler: " + verilenDersler);
     }
 
-    // AkademikMekan'deki soyut metodu override ediyoruz.
-    // Laboratuvar için hem kapasite hem de PC sayısı göz önünde bulundurulur.
+    // model.AkademikMekan'deki soyut metodu override ediyoruz.
+    // model.Laboratuvar için hem kapasite hem de PC sayısı göz önünde bulundurulur.
     @Override
     public boolean kapasiteSorgula(int kisiSayisi) {
         boolean kapasiteUygun = kisiSayisi <= getKapasite();
@@ -68,5 +73,15 @@ public class Laboratuvar extends AkademikMekan{
             System.out.println(getIsim() + " zaten ders/etkinlik içeriyor: " + verilenDersler + ". Yeni atama için önce mevcut atama kaldırılmalı.");
             return false;
         }
+    }
+    public void setPcSayisi(Integer pcSayisi) throws HataliVeriException {
+        if (pcSayisi < 0) {
+            throw new HataliVeriException("HATA: PC sayısı negatif olamaz.");
+        }
+        // Kapasiteye erişmek için getKapasite() kullanıyoruz
+        if (pcSayisi > getKapasite()) {
+            throw new HataliVeriException("HATA: PC sayısı (" + pcSayisi + "), laboratuvar kapasitesinden (" + getKapasite() + ") fazla olamaz!");
+        }
+        this.pcSayisi = pcSayisi;
     }
 }

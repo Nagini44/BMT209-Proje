@@ -1,10 +1,10 @@
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
+
+import exception.KapasiteHatasiException;
+import model.*;
+import services.JsonIslemleri;
+import services.VeriDeposu;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Main{
     private static Scanner scanner = new Scanner(System.in);
 
-    // Veri Depoları (Basit veritabanı simülasyonu)
+    // Veri Depoları
     private static List<AkademikMekan> mekanlar = new ArrayList<>();
     private static VeriDeposu<Ogrenci> ogrenciDeposu = new VeriDeposu<>();
     private static List<Ders> dersListesi = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Main{
             System.out.println("###################################");
             System.out.println("Lütfen Giriş Türünü Seçiniz:");
             System.out.println("1. Öğrenci Girişi");
-            System.out.println("2. Akademisyen Girişi");
+            System.out.println("2. model.Akademisyen Girişi");
             System.out.println("3. İdari Personel Girişi");
             System.out.println("0. Kapat");
             System.out.print("Seçim: ");
@@ -80,7 +80,7 @@ public class Main{
                             break;
                         }
 
-                        System.out.print("Akademisyen ID'nizi giriniz (Örn: 2001): ");
+                        System.out.print("model.Akademisyen ID'nizi giriniz (Örn: 2001): ");
                         String girilenIdStr = scanner.nextLine();
 
                         try {
@@ -122,7 +122,7 @@ public class Main{
         System.out.println("\n--- ÖĞRENCİ PANELİ (" + aktifOgrenci.getAd() + " " + aktifOgrenci.getSoyad() + ") ---");
         System.out.println("1. GANO ve Harf Notu Göster");
         System.out.println("2. Transkript Görüntüle");
-        System.out.println("3. Ders Programı");
+        System.out.println("3. model.Ders Programı");
         System.out.println("0. Ana Menü");
         System.out.print("Seçim: ");
 
@@ -175,7 +175,7 @@ public class Main{
                     break;
                 case "4":
                     System.out.println("\n--- NOT GİRİŞ/GÜNCELLEME EKRANI ---");
-                    System.out.println("Aktif Akademisyen: " + aktifHoca.getAd() + " " + aktifHoca.getSoyad());
+                    System.out.println("Aktif model.Akademisyen: " + aktifHoca.getAd() + " " + aktifHoca.getSoyad());
                     System.out.println("Yetkili Olduğunuz Dersler: " + aktifHoca.getVerilenDersler());
 
                     System.out.print("İşlem yapılacak Öğrenci Numarası: ");
@@ -264,7 +264,7 @@ public class Main{
 
         System.out.println("\n--- İDARİ PERSONEL PANELİ ---");
         System.out.println("Aktif Personel: " + memur.getAd() + " " + memur.getSoyad());
-        System.out.println("1. Dersliğe Ders Ata");
+        System.out.println("1. Dersliğe model.Ders Ata");
         System.out.println("2. Derse Hoca Ata");
         System.out.println("3. Rezervasyon işlemi");
         System.out.println("0. Ana Menü");
@@ -273,9 +273,9 @@ public class Main{
         String secim = scanner.nextLine();
         switch(secim) {
             case "1":
-                System.out.print("Ders Adı: ");
+                System.out.print("model.Ders Adı: ");
                 String ders = scanner.nextLine();
-                System.out.print("Derslik Kodu: ");
+                System.out.print("model.Derslik Kodu: ");
                 String kod = scanner.nextLine();
                 AkademikMekan bulunan = null;
                 for (AkademikMekan m : mekanlar) {
@@ -315,7 +315,7 @@ public class Main{
     // Demo verileri yükleme
     private static void veriYukle() {
              // -- BURAYI EKLEYİN --
-        // JSON dosyasındaki öğrencileri okuyup sisteme (VeriDeposu'na) dahil ediyoruz
+        // JSON dosyasındaki öğrencileri okuyup sisteme (services.VeriDeposu'na) dahil ediyoruz
         List<Ogrenci> jsonOgrencileri = JsonIslemleri.ogrencileriYukle();
         for (Ogrenci o : jsonOgrencileri) {
             ogrenciDeposu.ekle(o);
@@ -326,7 +326,7 @@ public class Main{
         try {
             mekanlar.add(new Laboratuvar("LB-1", "Bina B", 30, 25));
         } catch (Exception e) {
-            System.out.println("Laboratuvar oluşturulurken hata: " + e.getMessage());
+            System.out.println("model.Laboratuvar oluşturulurken hata: " + e.getMessage());
         }
     }
 

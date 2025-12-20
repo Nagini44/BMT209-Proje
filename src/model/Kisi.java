@@ -1,3 +1,5 @@
+package model;
+
 import java.time.LocalDate;
 
 // Gereksinim 4.2: Abstract sınıf
@@ -15,7 +17,7 @@ public abstract class Kisi {
         this.id = System.currentTimeMillis();
     }
 
-    public Kisi(long id, String ad, String soyad, LocalDate dogumTarihi,Unvan unvan) {
+    public Kisi(long id, String ad, String soyad, LocalDate dogumTarihi, Unvan unvan) {
         this.id = id;
         this.ad = ad;
         this.soyad = soyad;

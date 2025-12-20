@@ -1,3 +1,5 @@
+package model;
+
 public class Ders {
     private String kod;
     private String ad;

@@ -1,3 +1,7 @@
+package model;
+
+import exception.HataliVeriException;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,13 +18,19 @@ public class Akademisyen extends Kisi {
         this.id = id;
         this.sicilNo = sicilNo;
         this.brans = brans;
-        this.maas = maas;
+        try {
+            setMaas(maas); // Setter içindeki kontrol çalışır
+        } catch (HataliVeriException e) {
+            System.out.println("Akademisyen oluşturulurken hata: " + e.getMessage());
+            // Hata durumunda varsayılan değer atayabiliriz
+            this.maas = 0;
+        }
         this.verilenDersler = verilenDersler;
     }
 
     public boolean dersBransaUygunMu(String dersKodu) {
         if (verilenDersler == null) return false;
-        // Ders kodunun kökünü kontrol et (Örn: Fiz101V -> Fiz101 içeriyor mu?)
+        // model.Ders kodunun kökünü kontrol et (Örn: Fiz101V -> Fiz101 içeriyor mu?)
         for(String ders : verilenDersler) {
             if(dersKodu.startsWith(ders)) return true;
         }
@@ -50,12 +60,18 @@ public class Akademisyen extends Kisi {
         System.out.println("Verdiği Dersler: " + (verilenDersler != null ? verilenDersler : "Yok"));
     }
 
-    public String getRolAdi() { return "Akademisyen"; }
+    public String getRolAdi() { return "model.Akademisyen"; }
 
     // Getter - Setter
     public String getBrans() { return brans; }
     public void setBrans(String brans) { this.brans = brans; }
     public double getMaas() { return maas; }
+    public void setMaas(double maas) throws HataliVeriException {
+        if (maas < 0) {
+            throw new HataliVeriException("HATA: Maaş negatif olamaz! Girilen değer: " + maas);
+        }
+        this.maas = maas;
+    }
     public String getSicilNo() { return sicilNo; }
     public long getId() { return id; }
     public List<String> getVerilenDersler() { return verilenDersler; }
